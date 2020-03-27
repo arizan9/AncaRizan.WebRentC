@@ -1,0 +1,115 @@
+﻿@model Anca.Rizan.WebRentC.Core.ViewModels.RentalsViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Reservation</h4>
+        <hr />
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.CostumerID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.CostumerID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reservation.CostumerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.ReservStatsID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.ReservStatsID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reservation.ReservStatsID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.CouponCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Reservation.CouponCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Reservation.CouponCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => Model.SelectedLocationID, new SelectList(Model.Locations, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "LocationID" })
+                @Html.ValidationMessageFor(model => model.Reservation.LocationID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Reservation.CarID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => Model.SelectedLocationID, new SelectList(Model.Cars, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "CarID" })
+                @Html.ValidationMessageFor(model => model.Reservation.CarID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+            $('#LocationID').change(function () {
+                var selectedLocation = $("#LocationID").val();
+                var carSelect = $('#CarID');
+                carSelect.empty();
+                if (selectedLocation != null && selectedLocation != '') {
+                    $.getJSON('@Url.Action("GetCars")', { id: selectedLocation }, function (cars) {
+                        if (cars != null && !jQuery.isEmptyObject(cars))
+                        {
+                            carSelect.append($('<option/>', {
+                                value: null,
+                                text: ""
+                            }));
+                            $.each(cars, function (index, car) {
+                                carSelect.append($('<option/>', {
+                                    value: car.Value,
+                                    text: car.Text
+                                }));
+                            });
+                        };
+                    });
+                }
+            });
+    </script>
+}

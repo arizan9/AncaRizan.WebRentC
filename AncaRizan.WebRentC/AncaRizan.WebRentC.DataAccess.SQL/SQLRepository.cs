@@ -1,11 +1,7 @@
 ﻿using Anca.Rizan.WebRentC.Core.Contracts;
 using Anca.Rizan.WebRentC.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AncaRizan.WebRentC.DataAccess.SQL
 {

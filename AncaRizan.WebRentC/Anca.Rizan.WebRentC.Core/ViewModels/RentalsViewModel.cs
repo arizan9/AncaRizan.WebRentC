@@ -1,10 +1,11 @@
-﻿using Anca.Rizan.WebRentC.Core.Models;
+﻿using Anca.Rizan.WebRentC.Core.Contracts;
+using Anca.Rizan.WebRentC.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Mvc;
+
 
 namespace Anca.Rizan.WebRentC.Core.ViewModels
 {
@@ -15,32 +16,69 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
         [Required]
         [Display(Name = "Location")]
         public int SelectedLocationID { get; set; }
-        public IEnumerable<Location> Locations { get; set; }
+        public IEnumerable<SelectListItem> Locations { get; set; }
 
 
         [Required]
         [Display(Name = "Car")]
         public int SelectedCarID { get; set; }
-        public IEnumerable<Car> Cars { get; set; }
+        public IEnumerable<SelectListItem> Cars { get; set; }
 
+        public IEnumerable<SelectListItem> GetLocations()
+        {
+            using (var context = new RentCDataContext())
+            {
+                List<SelectListItem> locations = context.Locations.AsNoTracking()
+                    .OrderBy(l => l.Name)
+                        .Select(l =>
+                        new SelectListItem
+                        {
+                            Value = l.LocationID.ToString(),
+                            Text = l.Name
+                        }).ToList();
+                var locationtip = new SelectListItem()
+                {
+                    Value = null,
+                    Text = "--- select location ---"
+                };
+                locations.Insert(0, locationtip);
+                return new SelectList(locations, "Value", "Text");
+            }
+        }
 
-        /* [Display(Name = "Customer Number")]
-        public string CustomerID { get; set; }
+        public IEnumerable<SelectListItem> GetCars()
+        {
+            List<SelectListItem> cars = new List<SelectListItem>()
+            {
+                new SelectListItem
+                {
+                    Value = null,
+                    Text = " "
+                }
+            };
+            return cars;
+        }
 
-        [Required]
-        [Display(Name = "Customer Name")]
-        [StringLength(75)]
-        public string CustomerName { get; set; }
-
-        [Required]
-        [Display(Name = "Country")]
-        public string SelectedCountryIso3 { get; set; }
-        public IEnumerable<SelectListItem> Countries { get; set; }
-
-        [Required]
-        [Display(Name = "State / Region")]
-        public string SelectedRegionCode { get; set; }
-        public IEnumerable<SelectListItem> Regions { get; set; }*/
-
+        public IEnumerable<SelectListItem> GetCars(int id)
+        {
+            if (id>0)
+            {
+                using (var context = new RentCDataContext())
+                {
+                    IEnumerable<SelectListItem> cars = context.Cars.AsNoTracking()
+                        .Where(c => c.LocationID == id)
+                        .Select(n =>
+                           new SelectListItem
+                           {
+                               Value = n.CarID.ToString(),
+                               Text = n.Plate
+                           }).ToList();
+                    return new SelectList(cars, "Value", "Text");
+                }
+            }
+            return null;
+        }
     }
 }
+
+

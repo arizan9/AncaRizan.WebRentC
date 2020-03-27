@@ -14,15 +14,15 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         // GET: Rentals
 
         IRepository<Reservation> context;
-        IRepository<Location> location;
-        IRepository<Car> car;
+        IRepository<Location> locationContext;
+        IRepository<Car> carContext;
 
-        public RentalsController(IRepository<Reservation> reservationContext, IRepository<Location> locationContext,
-            IRepository<Car> carContext)
+        public RentalsController(IRepository<Reservation> reservationContext, IRepository<Location> locContext,
+            IRepository<Car> cContext)
         {
             context = reservationContext;
-            car = carContext;
-           location = locationContext;
+            carContext = cContext;
+            locationContext = locContext;
          
         }
         public ActionResult Index()
@@ -31,31 +31,23 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             return View(reservations);
         }
 
+
+        [HttpGet]
+        public ActionResult GetCars(int id)
+        {
+            RentalsViewModel viewModel = new RentalsViewModel();
+            IEnumerable<SelectListItem> cars = viewModel.GetCars(id);
+            return Json(cars, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Create()
         {
           
-            using (var db = new RentCDataContext())
-            {
-                RentalsViewModel viewModel = new RentalsViewModel();
-
-
-                viewModel.Reservation = new Reservation();
-                viewModel.Locations = location.Collection();
-                var selectedLocation = viewModel.SelectedLocationID;
-                viewModel.Cars = new List<Car>();
-                    
-                    
-                    /*from c in db.Cars
-                            where c.LocationID == selectedLocation
-                            select c;*/
-
-                return View(viewModel);
-            }
-
-           
-
-
-            //    return View(viewModel);
+               RentalsViewModel viewModel = new RentalsViewModel();
+               viewModel.Reservation = new Reservation();
+               viewModel.Locations = viewModel.GetLocations();
+               viewModel.Cars = viewModel.GetCars();
+               return View(viewModel);
         }
 
         [HttpPost]

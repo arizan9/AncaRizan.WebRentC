@@ -15,9 +15,13 @@ namespace Anca.Rizan.WebRentC.Core.Models
         public byte ReservStatsID { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         [StringLength(10)]

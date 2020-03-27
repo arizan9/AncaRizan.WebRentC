@@ -1,12 +1,8 @@
-using System;
 using System.Data.Entity;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Anca.Rizan.WebRentC.Core.Models;
 
-namespace AncaRizan.WebRentC.DataAccess.SQL
+namespace Anca.Rizan.WebRentC.Core.Models
 {
-   
+
     public partial class RentCDataContext : DbContext
     {
         public RentCDataContext()
