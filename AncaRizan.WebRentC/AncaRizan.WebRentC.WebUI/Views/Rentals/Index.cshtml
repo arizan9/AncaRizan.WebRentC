@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Anca.Rizan.WebRentC.Core.Models.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.CarID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostumerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservStatsID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CouponCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocationID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.CarID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CostumerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservStatsID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CouponCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationID })
+        </td>
+    </tr>
+}
+
+</table>
