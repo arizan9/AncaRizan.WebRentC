@@ -31,7 +31,7 @@
             @Html.DisplayNameFor(model => model.CouponCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LocationID)
+            @Html.DisplayNameFor(model => model.Location.LocationID)
         </th>
         <th></th>
     </tr>
@@ -40,19 +40,19 @@
     <tr>
        
         <td>
-            @Html.DisplayFor(modelItem => item.CarID)
+            @Html.DisplayFor(modelItem => item.Car.Plate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CostumerID)
+            @Html.DisplayFor(modelItem => item.Customer.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReservStatsID)
+            @Html.DisplayFor(modelItem => item.ReservationStatus.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
+            @Html.DisplayFor(modelItem => item.StartDate.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
+            @Html.DisplayFor(modelItem => item.EndDate.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CouponCode)

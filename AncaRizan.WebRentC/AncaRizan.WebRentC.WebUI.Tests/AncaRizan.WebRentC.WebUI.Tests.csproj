@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
+    <Content Include="Scripts\bootstrap-dtpicker.min.css" />
+    <Content Include="Scripts\bootstrap-dtpicker.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

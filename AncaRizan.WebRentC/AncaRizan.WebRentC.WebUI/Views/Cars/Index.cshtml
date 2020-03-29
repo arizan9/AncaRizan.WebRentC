@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Anca.Rizan.WebRentC.Core.Models.Car>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+        
+            @Html.ActionLink("CarID", "Index", new { sortBy = ViewBag.CarIDSort })
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Plate)
+        </th>
+        <th>
+           
+            @Html.ActionLink("Manufacturer", "Index", new { sortBy = ViewBag.ManufacturerSort })
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+           
+            @Html.ActionLink("Price", "Index", new { sortBy = ViewBag.PriceSort })
+        </th>
+        <th>
+            
+            @Html.ActionLink("Location", "Index", new { sortBy = ViewBag.LocationSort })
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CarID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PricePerDay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem =>item.LocationID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CarID }) |
+              @Html.ActionLink("Delete", "Delete", new { id=item.CarID  })
+        </td>
+    </tr>
+}
+
+</table>

@@ -5,23 +5,23 @@ namespace Anca.Rizan.WebRentC.Core.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public partial class Reservation : BaseEntity
     {
+
+        
         public int CarID { get; set; }
 
         public int CostumerID { get; set; }
 
         public byte ReservStatsID { get; set; }
 
-        [Column(TypeName = "date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
-        [Column(TypeName = "date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
 
         [StringLength(10)]
@@ -33,10 +33,19 @@ namespace Anca.Rizan.WebRentC.Core.Models
 
         public virtual Car Car { get; set; }
 
+        public virtual Location Location { get; set; }
+
         public virtual Coupon Coupon { get; set; }
 
         public virtual Customer Customer { get; set; }
 
         public virtual ReservationStatus ReservationStatus { get; set; }
+
+
+       
+
+       
     }
+
+    
 }

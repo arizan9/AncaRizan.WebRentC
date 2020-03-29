@@ -211,6 +211,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap-dtpicker.min.css" />
+    <Content Include="Scripts\bootstrap-dtpicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -264,10 +266,15 @@
     <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Rentals\Index.cshtml" />
     <Content Include="Views\Rentals\Create.cshtml" />
+    <Content Include="Views\Rentals\Edit.cshtml" />
+    <Content Include="Views\Rentals\Delete.cshtml" />
+    <Content Include="Views\Cars\Index.cshtml" />
+    <Content Include="Views\Cars\Create.cshtml" />
+    <Content Include="Views\Cars\Edit.cshtml" />
+    <Content Include="Views\Cars\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

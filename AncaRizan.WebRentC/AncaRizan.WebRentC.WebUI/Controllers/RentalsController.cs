@@ -16,21 +16,23 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         IRepository<Reservation> context;
         IRepository<Location> locationContext;
         IRepository<Car> carContext;
+        IRepository<Customer> customerContext;
 
         public RentalsController(IRepository<Reservation> reservationContext, IRepository<Location> locContext,
-            IRepository<Car> cContext)
+            IRepository<Car> cContext, IRepository<Customer> custContext)
         {
             context = reservationContext;
             carContext = cContext;
             locationContext = locContext;
-         
+            customerContext = custContext;
+
+
         }
         public ActionResult Index()
         {
-            List<Reservation> reservations= context.Collection().ToList();
+            List<Reservation> reservations =context.Collection().ToList();
             return View(reservations);
         }
-
 
         [HttpGet]
         public ActionResult GetCars(int id)
@@ -40,31 +42,43 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             return Json(cars, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+      public JsonResult ActionResult(int customerID)
+        {
+            var customers = customerContext.Collection();
+            if (customers.Any(c => c.CostumerID == customerID))
+            {
+                return Json("true");
+            }
+            else
+            {
+                return Json("Non-existing client");
+            }
+        }
+
         public ActionResult Create()
         {
-          
-               RentalsViewModel viewModel = new RentalsViewModel();
-               viewModel.Reservation = new Reservation();
-               viewModel.Locations = viewModel.GetLocations();
-               viewModel.Cars = viewModel.GetCars();
-               return View(viewModel);
+            Reservation reservation = new Reservation();
+            RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
+            viewModel.Locations = viewModel.GetLocations();
+            viewModel.Cars = viewModel.GetCars();
+            return View(viewModel);
         }
+
 
         [HttpPost]
         public ActionResult Create(Reservation reservation)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(reservation);
-            }
-            else
+            reservation.ReservStatsID = 1;
+
+            if (ModelState.IsValid)
             {
                 context.Insert(reservation);
                 context.Commit();
 
                 return RedirectToAction("Index");
             }
-
+            return View(reservation);
         }
 
         public ActionResult Edit(int Id)
@@ -76,7 +90,8 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             }
             else
             {
-                return View(reservation);
+                RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
+                return View(viewModel);
             }
         }
 

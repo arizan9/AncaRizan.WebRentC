@@ -72,5 +72,9 @@
       <DependentUpon>202003262208522_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\bootstrap-dtpicker.min.css" />
+    <Content Include="Scripts\bootstrap-dtpicker.min.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

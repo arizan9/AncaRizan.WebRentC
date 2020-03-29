@@ -1,6 +1,4 @@
 ﻿@model Anca.Rizan.WebRentC.Core.ViewModels.RentalsViewModel
-
-@{
     ViewBag.Title = "Create";
 }
 
@@ -13,63 +11,60 @@
 
     <div class="form-horizontal">
         <h4>Reservation</h4>
+        
         <hr />
 
-
+        @Html.ValidationSummary(true, "", new { @class="text-danger"})
         <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.CostumerID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CostumerID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.CostumerID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reservation.CostumerID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CostumerID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CostumerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group input-group-sm">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.StartDate, new { @class = "form-control datepicker " })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group input-group-sm">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.EndDate, new { @class = "form-control datepicker" })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.ReservStatsID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CouponCode, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.ReservStatsID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reservation.ReservStatsID, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CouponCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CouponCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reservation.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reservation.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.CouponCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reservation.CouponCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reservation.CouponCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.LocationID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(x => Model.SelectedLocationID, new SelectList(Model.Locations, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "LocationID" })
-                @Html.ValidationMessageFor(model => model.Reservation.LocationID, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => Model.LocationID, new SelectList(Model.Locations, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "LocationID" })
+                @Html.ValidationMessageFor(model => model.LocationID, "", new { @class = "text-danger" })
             </div>
         </div>
 
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Reservation.CarID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CarID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => Model.SelectedLocationID, new SelectList(Model.Cars, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "CarID" })
-                @Html.ValidationMessageFor(model => model.Reservation.CarID, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(x => Model.CarID, new SelectList(Model.Cars, "Value", "Text"), htmlAttributes: new { @class = "form-control", id = "CarID" })
+                @Html.ValidationMessageFor(model => model.CarID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -88,7 +83,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+         <script type="text/javascript">
             $('#LocationID').change(function () {
                 var selectedLocation = $("#LocationID").val();
                 var carSelect = $('#CarID');

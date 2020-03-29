@@ -23,6 +23,15 @@ namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
                 .Index(t => t.LocationID);
             
             CreateTable(
+                "dbo.Location",
+                c => new
+                    {
+                        LocationID = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 50, unicode: false),
+                    })
+                .PrimaryKey(t => t.LocationID);
+            
+            CreateTable(
                 "dbo.Reservations",
                 c => new
                     {
@@ -30,20 +39,22 @@ namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
                         CarID = c.Int(nullable: false),
                         CostumerID = c.Int(nullable: false),
                         ReservStatsID = c.Byte(nullable: false),
-                        StartDate = c.DateTime(nullable: false, storeType: "date"),
-                        EndDate = c.DateTime(nullable: false, storeType: "date"),
+                        StartDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
                         CouponCode = c.String(maxLength: 10, unicode: false),
                         LocationID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ReservationID)
                 .ForeignKey("dbo.Coupons", t => t.CouponCode)
                 .ForeignKey("dbo.Customers", t => t.CostumerID)
+                .ForeignKey("dbo.Location", t => t.LocationID, cascadeDelete: true)
                 .ForeignKey("dbo.ReservationStatuses", t => t.ReservStatsID)
                 .ForeignKey("dbo.Cars", t => t.CarID)
                 .Index(t => t.CarID)
                 .Index(t => t.CostumerID)
                 .Index(t => t.ReservStatsID)
-                .Index(t => t.CouponCode);
+                .Index(t => t.CouponCode)
+                .Index(t => t.LocationID);
             
             CreateTable(
                 "dbo.Coupons",
@@ -74,15 +85,6 @@ namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
                         Description = c.String(nullable: false, maxLength: 100, unicode: false),
                     })
                 .PrimaryKey(t => t.ReservStatsID);
-            
-            CreateTable(
-                "dbo.Location",
-                c => new
-                    {
-                        LocationID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 50, unicode: false),
-                    })
-                .PrimaryKey(t => t.LocationID);
             
             CreateTable(
                 "dbo.Permissions",
@@ -149,14 +151,16 @@ namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
             DropForeignKey("dbo.RolesPermissions", "RoleID", "dbo.Roles");
             DropForeignKey("dbo.RolesPermissions", "PermissionID", "dbo.Permissions");
             DropForeignKey("dbo.Users", "RoleID", "dbo.Roles");
-            DropForeignKey("dbo.Cars", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Reservations", "CarID", "dbo.Cars");
             DropForeignKey("dbo.Reservations", "ReservStatsID", "dbo.ReservationStatuses");
+            DropForeignKey("dbo.Reservations", "LocationID", "dbo.Location");
             DropForeignKey("dbo.Reservations", "CostumerID", "dbo.Customers");
             DropForeignKey("dbo.Reservations", "CouponCode", "dbo.Coupons");
+            DropForeignKey("dbo.Cars", "LocationID", "dbo.Location");
             DropIndex("dbo.RolesPermissions", new[] { "RoleID" });
             DropIndex("dbo.RolesPermissions", new[] { "PermissionID" });
             DropIndex("dbo.Users", new[] { "RoleID" });
+            DropIndex("dbo.Reservations", new[] { "LocationID" });
             DropIndex("dbo.Reservations", new[] { "CouponCode" });
             DropIndex("dbo.Reservations", new[] { "ReservStatsID" });
             DropIndex("dbo.Reservations", new[] { "CostumerID" });
@@ -167,11 +171,11 @@ namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
             DropTable("dbo.Users");
             DropTable("dbo.Roles");
             DropTable("dbo.Permissions");
-            DropTable("dbo.Location");
             DropTable("dbo.ReservationStatuses");
             DropTable("dbo.Customers");
             DropTable("dbo.Coupons");
             DropTable("dbo.Reservations");
+            DropTable("dbo.Location");
             DropTable("dbo.Cars");
         }
     }

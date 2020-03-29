@@ -9,20 +9,34 @@ using System.Web.Mvc;
 
 namespace Anca.Rizan.WebRentC.Core.ViewModels
 {
-    public class RentalsViewModel
+    public class RentalsViewModel 
     {
-        public Reservation Reservation{ get; set; }
+        public int CarID { get; set; }
 
         [Required]
-        [Display(Name = "Location")]
-        public int SelectedLocationID { get; set; }
+        public int CostumerID { get; set; }
+
+        public byte ReservStatsID { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
+        [StringLength(10)]
+        public string CouponCode { get; set; }
+
+        public int LocationID { get; set; }
+
+        public int ReservationID { get; set; }
+
+        public IEnumerable<SelectListItem> Cars { get; set; }
+
         public IEnumerable<SelectListItem> Locations { get; set; }
 
-
-        [Required]
-        [Display(Name = "Car")]
-        public int SelectedCarID { get; set; }
-        public IEnumerable<SelectListItem> Cars { get; set; }
+        
+        
 
         public IEnumerable<SelectListItem> GetLocations()
         {
@@ -61,7 +75,7 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
 
         public IEnumerable<SelectListItem> GetCars(int id)
         {
-            if (id>0)
+            if (id > 0)
             {
                 using (var context = new RentCDataContext())
                 {
@@ -78,6 +92,20 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
             }
             return null;
         }
+
+        public static RentalsViewModel FromReservation(Reservation reservation)
+        {
+            return new RentalsViewModel
+            {
+                CarID = reservation.CarID,
+                CostumerID = reservation.CostumerID,
+                ReservStatsID = reservation.ReservStatsID,
+                StartDate = reservation.StartDate,
+                EndDate = reservation.EndDate,
+                LocationID = reservation.LocationID
+            };
+        }
+
     }
 }
 
