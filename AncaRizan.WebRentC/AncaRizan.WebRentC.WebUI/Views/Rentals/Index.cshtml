@@ -11,60 +11,70 @@
 </p>
 <table class="table">
     <tr>
-       
         <th>
-            @Html.DisplayNameFor(model => model.CarID)
+            @Html.ActionLink("ReservationID", "Index", new { sortBy =  ViewBag.ReservationIDSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CostumerID)
+            @Html.DisplayNameFor(model => model.CarID)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.LastName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ReservStatsID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.ActionLink("StartDate", "Index", new { sortBy = ViewBag.StartDateSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            @Html.ActionLink("EndDate", "Index", new { sortBy = ViewBag.EndDateSort })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CouponCode)
+            @Html.DisplayNameFor(model => model.Coupon.Discount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Location.LocationID)
+            @Html.ActionLink("Location", "Index", new { sortBy = ViewBag.LocationSort })
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Car.Plate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReservationStatus.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CouponCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReservationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReservationID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Car.Plate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Customer.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Customer.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReservationStatus.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartDate.Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Coupon.Discount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Location.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ReservationID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ReservationID })
+    </td>
+</tr>
 }
 
 </table>

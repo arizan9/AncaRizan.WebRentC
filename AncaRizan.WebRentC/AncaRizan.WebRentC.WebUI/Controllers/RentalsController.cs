@@ -28,10 +28,43 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
 
 
         }
-        public ActionResult Index()
+        public ActionResult Index(string sortBy)
         {
-            List<Reservation> reservations =context.Collection().ToList();
-            return View(reservations);
+            var reservations =context.Collection();
+
+            ViewBag.ReservationIDSort = String.IsNullOrEmpty(sortBy) ? "ReservationID_desc" : "";
+            ViewBag.StartDateSort = sortBy == "StartDate" ? "StartDate_desc" : "StartDate";
+            ViewBag.EndDateSort = sortBy == "EndDate" ? "EndDate_desc" : "EndDate";
+            ViewBag.LocationSort = sortBy == "Location" ? "Location_desc" : "Location";
+
+            switch (sortBy)
+            {
+                case "CarID_desc":
+                    reservations = reservations.OrderByDescending(c => c.ReservationID);
+                    break;
+                case "StartDate":
+                    reservations = reservations.OrderBy(c => c.StartDate);
+                    break;
+                case "StartDate_desc":
+                    reservations = reservations.OrderByDescending(c => c.StartDate);
+                    break;
+                case "EndDate":
+                    reservations = reservations.OrderBy(c => c.EndDate);
+                    break;
+                case "EndDate_desc":
+                    reservations = reservations.OrderByDescending(c => c.EndDate);
+                    break;
+                case "Location":
+                    reservations = reservations.OrderBy(c => c.LocationID);
+                    break;
+                case "Location_desc":
+                    reservations = reservations.OrderByDescending(c => c.LocationID);
+                    break;
+                default:
+                    reservations = reservations.OrderBy(c => c.ReservationID);
+                    break;
+            }
+                    return View(reservations.ToList());
         }
 
         [HttpGet]
@@ -42,11 +75,11 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             return Json(cars, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-      public JsonResult ActionResult(int customerID)
+        [HttpGet]
+      public JsonResult CheckCustomer(int customerID)
         {
             var customers = customerContext.Collection();
-            if (customers.Any(c => c.CostumerID == customerID))
+            if (customers.Any(c=> c.CostumerID==customerID))
             {
                 return Json("true");
             }
@@ -73,9 +106,9 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
 
             if (ModelState.IsValid)
             {
+
                 context.Insert(reservation);
                 context.Commit();
-
                 return RedirectToAction("Index");
             }
             return View(reservation);
@@ -84,14 +117,17 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         public ActionResult Edit(int Id)
         {
             Reservation reservation= context.Find(Id);
+            RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
+            viewModel.Locations = viewModel.GetLocations();
+            viewModel.Cars = viewModel.GetCars();
+
             if (reservation == null)
             {
                 return HttpNotFound();
             }
             else
             {
-                RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
-                return View(viewModel);
+                 return View(viewModel);
             }
         }
 
@@ -99,6 +135,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         public ActionResult Edit(Reservation reservation, int Id)
         {
             Reservation reservationToEdit = context.Find(Id);
+            RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
 
             if (reservationToEdit == null)
             {
@@ -108,7 +145,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(reservation);
+                    return View(viewModel);
                 }
 
                 reservationToEdit.Car.Plate = reservation.Car.Plate;

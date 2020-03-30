@@ -1,4 +1,4 @@
-namespace AncaRizan.WebRentC.DataAccess.SQL.Migrations
+namespace Anca.Rizan.WebRentC.Core.Migrations
 {
     using System;
     using System.Data.Entity;

@@ -6,7 +6,7 @@ namespace Anca.Rizan.WebRentC.Core.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Coupon:BaseEntity
+    public partial class Coupon : BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Coupon()
@@ -15,6 +15,9 @@ namespace Anca.Rizan.WebRentC.Core.Models
         }
 
         [Key]
+        public int CuponID { get; set; }
+
+        [Required]
         [StringLength(10)]
         public string CouponCode { get; set; }
 

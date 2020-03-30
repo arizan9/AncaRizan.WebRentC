@@ -9,34 +9,44 @@ using System.Web.Mvc;
 
 namespace Anca.Rizan.WebRentC.Core.ViewModels
 {
-    public class RentalsViewModel 
+    public class RentalsViewModel: IValidatableObject
     {
         public int CarID { get; set; }
 
-        [Required]
+        [Remote("CheckCustomer", "Rentals", HttpMethod = "POST", ErrorMessage = "Client is not in the database")]
         public int CostumerID { get; set; }
 
         public byte ReservStatsID { get; set; }
 
-        [DataType(DataType.Date)]
+     
         public DateTime StartDate { get; set; }
 
-        [DataType(DataType.Date)]
+       
         public DateTime EndDate { get; set; }
-
-        [StringLength(10)]
-        public string CouponCode { get; set; }
 
         public int LocationID { get; set; }
 
         public int ReservationID { get; set; }
 
+        public int? CuponID { get; set; }
+
+        public virtual Car Car { get; set; }
+
+        public virtual Coupon Coupon { get; set; }
+
+        public virtual Customer Customer { get; set; }
+
+        public virtual Location Location { get; set; }
+
+        public virtual ReservationStatus ReservationStatus { get; set; }
+
+
         public IEnumerable<SelectListItem> Cars { get; set; }
 
         public IEnumerable<SelectListItem> Locations { get; set; }
 
-        
-        
+
+
 
         public IEnumerable<SelectListItem> GetLocations()
         {
@@ -104,6 +114,18 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
                 EndDate = reservation.EndDate,
                 LocationID = reservation.LocationID
             };
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (EndDate < StartDate)
+            {
+                yield return
+                  new ValidationResult(errorMessage: "EndDate must be greater than StartDate",
+                                       memberNames: new[] { "EndDate" });
+            }
+
+
         }
 
     }

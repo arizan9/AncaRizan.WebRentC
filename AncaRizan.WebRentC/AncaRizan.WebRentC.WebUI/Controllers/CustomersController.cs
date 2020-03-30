@@ -18,10 +18,45 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             context = customerContext;
 
         }
-        public ActionResult Index()
+        public ActionResult Index(string sortBy)
         {
-            List<Customer> customers = context.Collection().ToList();
-            return View(customers);
+            var customers = context.Collection();
+            ViewBag.CustomerIDSort = String.IsNullOrEmpty(sortBy) ? "CustomerID_desc" : "";
+            ViewBag.FirstNameSort = sortBy == "FirstName" ? "FirstName_desc" : "FirstName";
+            ViewBag.LastNameSort = sortBy == "LastName" ? "LastName_desc" : "LastName";
+            ViewBag.BirthdateSort = sortBy == "BirthDate" ? "BirthDay_desc" : "BirthDate";
+
+
+            switch (sortBy)
+            {
+                case "CarID_desc":
+                    customers = customers.OrderByDescending(c => c.CostumerID);
+                    break;
+                case "FirstName":
+                    customers = customers.OrderBy(c => c.FirstName);
+                    break;
+                case "FirstName_desc":
+                    customers = customers.OrderByDescending(c => c.FirstName);
+                    break;
+                case "LastName":
+                    customers = customers.OrderBy(c => c.LastName);
+                    break;
+                case "LastName_desc":
+                    customers = customers.OrderByDescending(c => c.LastName);
+                    break;
+                case "BirthDay":
+                    customers = customers.OrderBy(c => c.BirthDate);
+                    break;
+                case "BirthDay_desc":
+                    customers = customers.OrderByDescending(c => c.BirthDate);
+                    break;
+                default:
+                    customers = customers.OrderBy(c => c.CostumerID);
+                    break;
+            }
+
+
+            return View(customers.ToList());
         }
 
         public ActionResult Create()
@@ -76,7 +111,8 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
                     return View(customer);
                 }
 
-                customerToEdit.Name = customer.Name;
+                customerToEdit.FirstName = customer.FirstName;
+                customerToEdit.FirstName = customer.FirstName;
                 customerToEdit.BirthDate = customer.BirthDate;
                 
 

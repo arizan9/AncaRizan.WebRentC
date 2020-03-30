@@ -1,7 +1,9 @@
-using System.Data.Entity;
-
 namespace Anca.Rizan.WebRentC.Core.Models
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     public partial class RentCDataContext : DbContext
     {
@@ -53,8 +55,12 @@ namespace Anca.Rizan.WebRentC.Core.Models
                 .HasPrecision(4, 2);
 
             modelBuilder.Entity<Customer>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+                .Property(e => e.FirstName)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Customer>()
+                .Property(e => e.LastName)
+                .IsFixedLength();
 
             modelBuilder.Entity<Customer>()
                 .HasMany(e => e.Reservations)
@@ -66,8 +72,14 @@ namespace Anca.Rizan.WebRentC.Core.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<Location>()
-              .HasMany(e => e.Cars);
-              
+                .HasMany(e => e.Cars)
+                .WithRequired(e => e.Location)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Location>()
+                .HasMany(e => e.Reservations)
+                .WithRequired(e => e.Location)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Permission>()
                 .Property(e => e.Name)
@@ -81,10 +93,6 @@ namespace Anca.Rizan.WebRentC.Core.Models
                 .HasMany(e => e.Roles)
                 .WithMany(e => e.Permissions)
                 .Map(m => m.ToTable("RolesPermissions").MapLeftKey("PermissionID").MapRightKey("RoleID"));
-
-            modelBuilder.Entity<Reservation>()
-                .Property(e => e.CouponCode)
-                .IsUnicode(false);
 
             modelBuilder.Entity<ReservationStatus>()
                 .Property(e => e.Name)

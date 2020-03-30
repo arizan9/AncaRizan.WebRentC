@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Anca.Rizan.WebRentC.Core.ViewModels
 {
@@ -33,6 +34,34 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
 
 
         public virtual ICollection<Reservation> Reservations { get; set; }
+
+
+        public IEnumerable<SelectListItem> Locations { get; set; }
+
+
+
+
+        public IEnumerable<SelectListItem> GetLocations()
+        {
+            using (var context = new RentCDataContext())
+            {
+                List<SelectListItem> locations = context.Locations.AsNoTracking()
+                    .OrderBy(l => l.Name)
+                        .Select(l =>
+                        new SelectListItem
+                        {
+                            Value = l.LocationID.ToString(),
+                            Text = l.Name
+                        }).ToList();
+                var locationtip = new SelectListItem()
+                {
+                    Value = null,
+                    Text = "--- select location ---"
+                };
+                locations.Insert(0, locationtip);
+                return new SelectList(locations, "Value", "Text");
+            }
+        }
 
 
         public static CarsViewModel FromCar(Car car)

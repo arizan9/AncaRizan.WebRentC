@@ -55,7 +55,7 @@
             @Html.DisplayFor(modelItem => item.PricePerDay)
         </td>
         <td>
-            @Html.DisplayFor(modelItem =>item.LocationID)
+            @Html.DisplayFor(modelItem =>item.Location.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CarID }) |

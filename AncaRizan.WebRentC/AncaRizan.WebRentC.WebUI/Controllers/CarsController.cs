@@ -32,11 +32,6 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             ViewBag.PriceSort = sortBy == "Price" ? "Price_desc" : "Price";
             ViewBag.LocationSort = sortBy == "Location" ? "Location_desc" : "Location";
 
-            //@Html.ActionLink("Manufacturer", "Index", new { sortOrder = ViewBag.ManufacturerSortParam })
-            //    @Html.DisplayNameFor(model => model.CarID)
-            // @Html.DisplayNameFor(model => model.Manufacturer)
-            // @Html.DisplayNameFor(model => model.PricePerDay)
-            //@Html.DisplayNameFor(model => model.LocationID)
 
             switch (sortBy)
             {
@@ -56,10 +51,10 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
                     cars = cars.OrderByDescending(c => c.PricePerDay);
                     break;
                 case "Location":
-                    cars = cars.OrderBy(c => c.LocationID);
+                    cars = cars.OrderBy(c => c.Location.Name);
                     break;
                 case "Location_desc":
-                    cars = cars.OrderByDescending(c => c.LocationID);
+                    cars = cars.OrderByDescending(c => c.Location.Name);
                     break;
                 default:
                     cars = cars.OrderBy(c => c.CarID);
@@ -75,6 +70,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         {
             Car car= new Car();
             CarsViewModel viewModel = CarsViewModel.FromCar(car);
+            viewModel.Locations = viewModel.GetLocations();
             return View(viewModel);
         }
 
@@ -98,6 +94,8 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         {
             Car car= context.Find(Id);
             CarsViewModel viewModel = CarsViewModel.FromCar(car);
+            viewModel.Locations = viewModel.GetLocations();
+
             if (car == null)
             {
                 return HttpNotFound();

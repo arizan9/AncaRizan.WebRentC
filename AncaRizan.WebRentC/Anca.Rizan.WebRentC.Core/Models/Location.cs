@@ -6,11 +6,14 @@ namespace Anca.Rizan.WebRentC.Core.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Location")]
-    public partial class Location: BaseEntity
+    public partial class Location : BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Location() => Cars = new HashSet<Car>();
+        public Location()
+        {
+            Cars = new HashSet<Car>();
+            Reservations = new HashSet<Reservation>();
+        }
 
         public int LocationID { get; set; }
 
@@ -20,5 +23,8 @@ namespace Anca.Rizan.WebRentC.Core.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Car> Cars { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }
