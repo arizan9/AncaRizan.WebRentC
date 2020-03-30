@@ -10,6 +10,8 @@ namespace Anca.Rizan.WebRentC.Core.Models
     {
         public int UserID { get; set; }
 
+        public string Email {get; set;}
+
         [Required]
         [StringLength(100)]
         public string Password { get; set; }

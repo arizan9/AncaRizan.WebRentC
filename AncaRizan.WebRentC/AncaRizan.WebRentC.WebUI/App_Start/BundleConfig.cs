@@ -38,6 +38,12 @@ namespace AncaRizan.WebRentC.WebUI
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.css",  
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+          "~/Scripts/jquery-ui-{version}.js"));
+            //css  
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
+                   "~/Content/jquery-ui.css")); 
         }
     }
 }

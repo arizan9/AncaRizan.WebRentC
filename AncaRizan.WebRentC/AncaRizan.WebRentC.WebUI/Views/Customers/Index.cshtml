@@ -41,8 +41,10 @@
             @Html.DisplayFor(modelItem => item.BirthDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CostumerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CostumerID })
+          
+                @Html.ActionLink("Edit", "Edit", new { id = item.CostumerID }) ; 
+                @Html.ActionLink("Delete", "Delete", new { id = item.CostumerID });
+            
         </td>
     </tr>
 }

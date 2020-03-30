@@ -114,9 +114,12 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             return View(reservation);
         }
 
+
+       
+
         public ActionResult Edit(int Id)
         {
-            Reservation reservation= context.Find(Id);
+            Reservation reservation = context.Find(Id);
             RentalsViewModel viewModel = RentalsViewModel.FromReservation(reservation);
             viewModel.Locations = viewModel.GetLocations();
             viewModel.Cars = viewModel.GetCars();
@@ -127,7 +130,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
             }
             else
             {
-                 return View(viewModel);
+                return View(viewModel);
             }
         }
 
@@ -148,7 +151,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
                     return View(viewModel);
                 }
 
-                reservationToEdit.Car.Plate = reservation.Car.Plate;
+                reservationToEdit.CarID = reservation.CarID;
                 reservationToEdit.CostumerID = reservation.CostumerID;
                 reservationToEdit.StartDate = reservation.StartDate;
                 reservationToEdit.EndDate = reservation.EndDate;

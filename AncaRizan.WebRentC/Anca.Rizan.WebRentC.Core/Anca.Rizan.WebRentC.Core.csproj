@@ -77,6 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Migrations\202003300405430_AddUserEmail.cs" />
+    <Compile Include="Migrations\202003300405430_AddUserEmail.Designer.cs">
+      <DependentUpon>202003300405430_AddUserEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Car.cs" />
@@ -98,6 +102,7 @@
     </Compile>
     <Compile Include="ViewModels\CarsViewModel.cs" />
     <Compile Include="ViewModels\RentalsViewModel.cs" />
+    <Compile Include="ViewModels\ReportsViewModel.cs" />
     <Compile Include="Web References\localhost\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -140,6 +145,11 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Anca_Rizan_WebRentC_Core_localhost_WebService1</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003300405430_AddUserEmail.resx">
+      <DependentUpon>202003300405430_AddUserEmail.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

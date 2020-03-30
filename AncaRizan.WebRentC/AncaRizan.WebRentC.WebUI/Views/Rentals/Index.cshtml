@@ -32,9 +32,7 @@
         <th>
             @Html.ActionLink("EndDate", "Index", new { sortBy = ViewBag.EndDateSort })
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Coupon.Discount)
-        </th>
+       
         <th>
             @Html.ActionLink("Location", "Index", new { sortBy = ViewBag.LocationSort })
         </th>
@@ -64,9 +62,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.EndDate)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Coupon.Discount)
-    </td>
+   
     <td>
         @Html.DisplayFor(modelItem => item.Location.Name)
     </td>

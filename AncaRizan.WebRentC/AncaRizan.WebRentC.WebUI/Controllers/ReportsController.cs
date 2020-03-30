@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anca.Rizan.WebRentC.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,10 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
         // GET: Reports
         public ActionResult Index()
         {
-            return View();
+            ReportsViewModel viewModel = new ReportsViewModel();
+            
+
+            return View(viewModel);
         }
     }
 }

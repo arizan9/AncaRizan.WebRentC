@@ -13,15 +13,19 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
     {
         public int CarID { get; set; }
 
-        [Remote("CheckCustomer", "Rentals", HttpMethod = "POST", ErrorMessage = "Client is not in the database")]
+    //    [Remote("CheckCustomer", "Rentals", HttpMethod = "POST", ErrorMessage = "Client is not in the database")]
         public int CostumerID { get; set; }
 
         public byte ReservStatsID { get; set; }
 
-     
+        [Required(ErrorMessage = "The start date is required")]
+        [Display(Name = "Start Date:")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime StartDate { get; set; }
 
-       
+        [Required(ErrorMessage = "The end date is required")]
+        [Display(Name = "End Date:")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime EndDate { get; set; }
 
         public int LocationID { get; set; }
@@ -116,16 +120,25 @@ namespace Anca.Rizan.WebRentC.Core.ViewModels
             };
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+
+        IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
+            List<ValidationResult> errormsg = new List<ValidationResult>();
+
             if (EndDate < StartDate)
             {
-                yield return
-                  new ValidationResult(errorMessage: "EndDate must be greater than StartDate",
-                                       memberNames: new[] { "EndDate" });
+                errormsg.Add(new ValidationResult("EndDate must be greater than StartDate", new[] { "EndDate" }));
             }
 
-
+            using (var db = new RentCDataContext())
+            {
+                if (!db.Customers.Any(c => c.CostumerID == CostumerID))
+                {
+                    errormsg.Add(new ValidationResult("Client isn't in the database", new[] { "EndDate" }));
+                }
+            }
+        
+            return errormsg;
         }
 
     }

@@ -1,0 +1,129 @@
+﻿@model Anca.Rizan.WebRentC.Core.ViewModels.ReportsViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Most Rented Car</h4>
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.MostRentedCar.Plate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MostRentedCar.Plate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.MostRentedCar.Manufacturer)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MostRentedCar.Manufacturer)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.MostRentedCar.Model)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MostRentedCar.Model)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.MostRentedCar.PricePerDay)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.MostRentedCar.PricePerDay)
+    </dd>
+
+</dl>
+
+<h4>Least Rented Car</h4>
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LeastRetedCar.Plate)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LeastRetedCar.Plate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LeastRetedCar.Manufacturer)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LeastRetedCar.Manufacturer)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LeastRetedCar.Model)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LeastRetedCar.Model)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.LeastRetedCar.PricePerDay)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.LeastRetedCar.PricePerDay)
+    </dd>
+
+</dl>
+
+
+
+
+<h4>Gold Customers</h4>
+
+@foreach (var item in Model.GoldCustomers)
+{
+    <dl class="dl-horizontal">
+
+        <dt>ID:</dt>
+        <dd>@item.CostumerID</dd>
+
+        <dt>FirstName</dt>
+        <dd>@item.FirstName</dd>
+
+        <dt>LastName</dt>
+        <dd>@item.LastName</dd>
+
+        <dt>BirthDate</dt>
+        <dd>@item.BirthDate</dd>
+
+    </dl>
+}
+
+<h4>Silever Customers</h4>
+
+@foreach (var item in Model.SilverCustomers)
+{
+    <dl class="dl-horizontal">
+
+        <dt>ID:</dt>
+        <dd>@item.CostumerID</dd>
+
+        <dt>FirstName</dt>
+        <dd>@item.FirstName</dd>
+
+        <dt>LastName</dt>
+        <dd>@item.LastName</dd>
+
+        <dt>BirthDate</dt>
+        <dd>@item.BirthDate</dd>
+
+    </dl>
+}
+
+
+
