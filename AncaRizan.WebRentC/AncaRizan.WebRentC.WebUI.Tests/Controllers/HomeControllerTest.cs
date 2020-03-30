@@ -50,5 +50,6 @@ namespace AncaRizan.WebRentC.WebUI.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+/// just a coment to be able to make another submit
     }
 }
