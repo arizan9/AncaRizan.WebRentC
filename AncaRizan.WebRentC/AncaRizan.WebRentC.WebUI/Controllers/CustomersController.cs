@@ -112,7 +112,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
                 }
 
                 customerToEdit.FirstName = customer.FirstName;
-                customerToEdit.FirstName = customer.FirstName;
+                customerToEdit.LastName = customer.LastName;
                 customerToEdit.BirthDate = customer.BirthDate;
                 
 

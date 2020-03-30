@@ -154,6 +154,7 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
                 reservationToEdit.CarID = reservation.CarID;
                 reservationToEdit.CostumerID = reservation.CostumerID;
                 reservationToEdit.StartDate = reservation.StartDate;
+                reservationToEdit.ReservStatsID = reservation.ReservStatsID;
                 reservationToEdit.EndDate = reservation.EndDate;
                 reservationToEdit.LocationID = reservation.LocationID;
 

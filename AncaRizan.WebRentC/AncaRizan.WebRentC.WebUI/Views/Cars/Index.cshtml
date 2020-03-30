@@ -58,11 +58,10 @@
             @Html.DisplayFor(modelItem =>item.Location.Name)
         </td>
         <td>
-            @if (Request.IsAuthenticated && (User.IsInRole("Administator") || User.IsInRole("Manager")))
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.CarID }) ;
+            
+                @Html.ActionLink("Edit", "Edit", new { id = item.CarID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.CarID }) 
-            }
+            
            
         </td>
     </tr>

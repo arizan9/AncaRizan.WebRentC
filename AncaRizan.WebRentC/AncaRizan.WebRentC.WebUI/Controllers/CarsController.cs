@@ -25,8 +25,11 @@ namespace AncaRizan.WebRentC.WebUI.Controllers
 
         public ActionResult Index(string sortBy)
         {
-            IEnumerable<Car> cars = CarsViewModel.GetCarsFromWebServer();
+            IEnumerable<Car> cars;
 
+            cars = context.Collection();
+         //   cars = CarsViewModel.GetCarsFromWebServer();
+         
             ViewBag.CarIDSort = String.IsNullOrEmpty(sortBy) ? "CarID_desc" : "";
             ViewBag.ManufacturerSort = sortBy == "Manufacturer" ? "Manufacturer_desc" : "Manufacturer";
             ViewBag.PriceSort = sortBy == "Price" ? "Price_desc" : "Price";

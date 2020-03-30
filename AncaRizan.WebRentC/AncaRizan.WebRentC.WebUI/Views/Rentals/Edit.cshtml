@@ -87,7 +87,6 @@
             $('#LocationID').change(function () {
                 var selectedLocation = $("#LocationID").val();
                 var carSelect = $('#CarID');
-              
                 if (selectedLocation != null && selectedLocation != '') {
                     $.getJSON('@Url.Action("GetCars")', { id: selectedLocation }, function (cars) {
                         if (cars != null && !jQuery.isEmptyObject(cars))
